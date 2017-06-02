@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/baloise.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../lib/css/atom-one-dark.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/print/pdf.css' : '../css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section class="deck-slide" data-background="#E5F3F9">
+            <h1>Node, JavaScript Basics</h1>
+        </section>
+        <section>
+            <h2>ES6 / ES2015</h2>
+            <ul>
+                <li>Start of a new Release Cycle every year</li>
+                <li>This year's Release will be ES2017</li>
+                <li>
+                    Checkout the basic introduction of the<br/>
+                    <a href="https://baloise.github.io/ws-angular_slides/slides/02_Grundlagen.html">
+                        Angular Workshop
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section class="deck-slide" data-background="#E5F3F9">
+            <h1>Callbacks & Promises</h1>
+        </section>
+        <section>
+            <section>
+                <h2>Callbacks</h2>
+                <h3>Most Basic way to deal with async</h3>
+                <pre>
+                    <code class="hljs" data-trim contenteditable data-noescape>
+                        function fetchStuff(callback) {
+                            setTimeout(() => {
+                                callback('Look what I found!');
+                            }, 500);
+                        }
+
+                        fetchStuff(fetchedData => console.log(fetchedData));
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>What about errors?</h3>
+                <pre>
+                    <code class="hljs" data-trim contenteditable data-noescape>
+                        function fetchStuff(callback) {
+                            setTimeout(() => {
+                                throw 'I found nothing :(';
+                            }, 500);
+                        }
+
+                        try {
+                            fetchStuff(fetchedData => console.log(fetchedData));
+                        } catch (e) {
+                            console.log('catched exception');
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Callback Parameter</h3>
+                <pre>
+                    <code class="hljs" data-trim contenteditable data-noescape>
+                        function fetchStuff(callback) {
+                            setTimeout(() => {
+                                try {
+                                    // some black magic
+                                    callback(undefined, 'I found data');
+                                } catch (error) {
+                                    callback(error);
+                                }
+                            }, 500);
+                        }
+
+                        fetchStuff((error, fetchedData) => {
+                            error ? console.log('Outch') : console.log(fetchedData);
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Callback Hell</h3>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+                        asyncFetch((error, fetchedData) => {
+                            // Do something with fetched Data
+                            asyncPost(data, (error2, result) => {
+                                // Do something with result
+                                asyncFetch((error3, fetchedData3) => {
+                                    console.log(error); // Wat?
+                                });
+                            });
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>There has to be a better solution...</h3>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Promises ($q)</h2>
+                <ul>
+                    <li>A proxy for a value that is not yet known</li>
+                    <li>Single Error Stream</li>
+                    <li>All Browsers Except IE <= 11...</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Basic Usage</h3>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+                        const myPromise = new Promise((resolve, reject) => {
+                            setTimeout(() => resolve('Found data'), 500);
+                        });
+
+                        myPromise
+                            .then(data => console.log(data);
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Single Error Stream</h3>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+                        const myPromise = new Promise((resolve, reject) => {
+                            setTimeout(() => throw 'No data found :(');
+                        });
+
+                        myPromise
+                            .catch(error => console.error(error);
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Chainable</h3>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+                        myPromise
+                            .then(() => {
+                                // Do something
+                                return asycPush();
+                            })
+                            .then((resultOfOtherPromise) => {
+                                return asyncFetch();
+                            })
+                            .catch(error => console.error(error);
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Promise.all</h3>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+                        Promise.all([
+                            myFirstPromise,
+                            mySecondPromise,
+                        ])
+                            .then((promiseResults) => {
+                                /* Array of Promise results */
+                            })
+                            .catch(error => console.error(error);
+                    </code>
+                </pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>JS Specifics</h2>
+                <h3>Truthy und Falsy</h3>
+                <ul>
+                    <li>false</li>
+                    <li>0</li>
+                    <li>"" (empty string)</li>
+                    <li>null</li>
+                    <li>undefined</li>
+                    <li>NaN</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Null checks & Triple equals</h3>
+                <pre>
+                 <code class="hljs typescript" data-trim contenteditable data-noescape>
+                     const customer = getCustomer();
+                     if(customer === null || customer === undefined) {
+                        // do sth.
+                     }
+
+                     if(!customer) {
+                        // do sth.
+                     }
+                 </code>
+             </pre>
+            </section>
+            <section>
+                <p>
+                    If you want to know the specifics of type coercion check out
+                    <a href="https://www.safaribooksonline.com/library/view/you-dont-know/9781491905159/ch04.html">
+                        You don't know JS
+                    </a>
+                </p>
+            </section>
+        </section>
+        <section>
+            <h2>Question Time!</h2>
+            <img src="../img/dumb_questions.jpg" width="80%">
+        </section>
+    </div>
+</div>
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>

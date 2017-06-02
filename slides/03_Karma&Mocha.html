@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/baloise.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../lib/css/atom-one-dark.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/print/pdf.css' : '../css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section class="deck-slide" data-background="#E5F3F9">
+            <h1>Unit Testing</h1>
+        </section>
+        <section>
+            <section>
+                <h2>Karma</h2>
+                <ul>
+                    <li>JS Tests need a Runtime</li>
+                    <li>Our App runs in the Browser</li>
+                    <li>So our Tests should also run in the Browser</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Mocha</h2>
+                <ul>
+                    <li>Define Unit Tests and Test Suites</li>
+                    <li>Behaviour Driven Design</li>
+                    <li>Use describe() for a suite and it() for a unit</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Chai</h2>
+                <ul>
+                    <li>Mocha has no matchers</li>
+                    <li>
+                        Multiple matcher styles:<br />
+                        should, expect and assert
+                    </li>
+                    <li>
+                        Check out the <a href="http://chaijs.com/guide/styles/#expect">docs</a>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        describe('PizzaService', () => {
+                            describe('getPizza', () => {
+                                it('should return Salami Pizza when no param given', () => {
+                                    const pizzaService = new PizzaService();
+                                    const salamiPizza = new Pizza('Salami');
+
+                                    const actual = service.getPizza();
+
+                                    expect(actual).to.eql(salamiPizza);
+                                });
+                            });
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Mocha/Chai vs JUnit</h3>
+                <ul>
+                    <li>@Test => it('should ...')</li>
+                    <li>@Ignore => describe.skip, it.skip</li>
+                    <li>Excecute one test => describe.only, it.only</li>
+                    <li>Assert => expect</li>
+                    <li>@Before => beforeEach</li>
+                    <li>@After => afterEach</li>
+                </ul>
+            </section>
+        </section>
+    </div>
+</div>
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
