@@ -38,6 +38,9 @@
                         Angular Workshop
                     </a>
                 </li>
+                <li>
+                    Transpile with Babel
+                </li>
             </ul>
         </section>
         <section class="deck-slide" data-background="#E5F3F9">
@@ -150,9 +153,45 @@
                         });
 
                         myPromise
-                            .catch(error => console.error(error);
+                            .then(
+                                success => /* Do something */,
+                                error => console.error(error)
+                            );
                     </code>
                 </pre>
+            </section>
+            <section>
+                <h3>.then(onResolve, onReject)</h3>
+                <ul>
+                    <li>Registers handler that gets fired on resolve</li>
+                    <li>Getting called in order of registering</li>
+                    <li>Returns Promise that resolves with return value of onResolve</li>
+                    <li>onReject will not catch errors from onResolve</li>
+                </ul>
+            </section>
+            <section>
+                <h3>onResolve Error</h3>
+                <pre>
+                    <code class="hljs javascript" data-trim contenteditable data-noescape>
+                        const myPromise = new Promise((resolve, reject) => {
+                            setTimeout(() => resolve('Found something');
+                        });
+
+                        myPromise
+                            .then(
+                                result => throw 'Ooops!',
+                                error => console.error(error)
+                            );
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>.catch(onReject)</h3>
+                <ul>
+                    <li>Same as calling .then(null, onReject)</li>
+                    <li>Will return rejected Promise</li>
+                    <li>Unless onReject returns Promise.resolve(result)</li>
+                </ul>
             </section>
             <section>
                 <h3>Chainable</h3>
@@ -185,11 +224,51 @@
                     </code>
                 </pre>
             </section>
+            <section>
+                <h3>$q.defer</h3>
+                <ul>
+                    <li>Creates an object with .promise property</li>
+                    <li>Can be resolved, rejected from outside</li>
+                    <li>Almost always hints to a hack/workaround for Promises</li>
+                </ul>
+            </section>
+            <section>
+                <h3>resolved and rejected Promise</h3>
+                <ul>
+                    <li>Creates an object with .promise property</li>
+                    <li>Can be resolved, rejected from outside</li>
+                    <li>Almost always hints to a hack/workaround for Promises</li>
+                </ul>
+            </section>
         </section>
 
         <section>
             <section>
-                <h2>JS Specifics</h2>
+                <h2>Types</h2>
+                <ul>
+                    <li>null</li>
+                    <li>undefined</li>
+                    <li>boolean</li>
+                    <li>number</li>
+                    <li>string</li>
+                    <li>object</li>
+                    <li>symbol</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Equality</h3>
+                <pre>
+                 <code class="hljs typescript" data-trim contenteditable data-noescape>
+                     const value1 = undefined;
+                     const value2 = null;
+
+                     if(value1 == value2) {
+                        console.log('Y though?');
+                     }
+                 </code>
+             </pre>
+            </section>
+            <section>
                 <h3>Truthy und Falsy</h3>
                 <ul>
                     <li>false</li>
@@ -197,7 +276,6 @@
                     <li>"" (empty string)</li>
                     <li>null</li>
                     <li>undefined</li>
-                    <li>NaN</li>
                 </ul>
             </section>
             <section>
