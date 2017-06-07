@@ -89,6 +89,90 @@
                 </ul>
             </section>
         </section>
+        <section>
+            <section>
+                <h2>Async Testing</h2>
+            </section>
+            <section>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        describe('PizzaService', () => {
+                            describe('getAsyncPizza', () => {
+                                it('should return Salami Pizza asynchronously', () => {
+                                    const pizzaService = new PizzaService();
+                                    const salamiPizza = new Pizza('Salami');
+
+                                    const promise = service.getAsyncPizza();
+
+                                    promise.then(actual => {
+                                        expect(actual).to.eql(salamiPizza);
+                                    });
+                                });
+                            });
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Problem</h3>
+                <ul>
+                    <li>Test is green</li>
+                    <li>The async Exception is not catched by our test</li>
+                    <li>When Exception happens, the test is already finished</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Solution</h3>
+                <ul>
+                    <li>$digest loop</li>
+                    <li>Angular Promises are bound to it</li>
+                    <li>Tests can be written almost like synchronous</li>
+                </ul>
+            </section>
+            <section>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        describe('PizzaService', () => {
+                            describe('getAsyncPizza', () => {
+                                it('should return Salami Pizza asynchronously', () => {
+                                    let actual;
+                                    const pizzaService = new PizzaService();
+                                    const salamiPizza = new Pizza('Salami');
+
+                                    service.getAsyncPizza()
+                                        .then(pizza => actual = pizza);
+                                    $rootScope.$digest;
+
+                                    expect(actual).to.eql(salamiPizza);
+                                });
+                            });
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Without Angular?</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        describe('PizzaService', () => {
+                            describe('getAsyncPizza', () => {
+                                it('should return Salami Pizza asynchronously', (done) => {
+                                    const pizzaService = new PizzaService();
+                                    const salamiPizza = new Pizza('Salami');
+
+                                    const promise = service.getAsyncPizza();
+
+                                    promise.then((actual) => {
+                                        expect(actual).to.eql(salamiPizza);
+                                        done();
+                                    }).catch(done);
+                                });
+                            });
+                        });
+                    </code>
+                </pre>
+            </section>
+        </section>
     </div>
 </div>
 <script src="../lib/js/head.min.js"></script>
