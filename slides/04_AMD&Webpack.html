@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="../css/reveal.css">
+    <link rel="stylesheet" href="../css/theme/baloise.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="../lib/css/atom-one-dark.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? '../css/print/pdf.css' : '../css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section class="deck-slide" data-background="#E5F3F9">
+            <h1>Modules & Bundling</h1>
+        </section>
+        <section>
+            <section>
+                <h2>Modules</h2>
+                <ul>
+                    <li>No modules before ES2015 in Standard</li>
+                    <li>Various Module Systems</li>
+                    <li>AMD, CommonJS, UMD, ...</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>AMD</h2>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        //Calling define with a dependency array and a factory function
+                        define(['dep1', 'dep2'], function (dep1, dep2) {
+
+                            //Define the module value by returning a value.
+                            return function () {};
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>define([name], dependencies, factory)</h3>
+                <ul>
+                    <li>Optional name of module</li>
+                    <li>Array of dependencies, either name or path of other module</li>
+                    <li>Factory function that initializes our module</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h2>Question Time!</h2>
+            <img src="../img/dumb_questions.jpg" width="80%">
+        </section>
+    </div>
+</div>
+<script src="../lib/js/head.min.js"></script>
+<script src="../js/reveal.js"></script>
+
+<script>
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        history: true,
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            {src: '../plugin/markdown/marked.js'},
+            {src: '../plugin/markdown/markdown.js'},
+            {src: '../plugin/notes/notes.js', async: true},
+            {
+                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
