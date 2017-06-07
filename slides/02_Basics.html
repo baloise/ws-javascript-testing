@@ -189,8 +189,8 @@
                 <h3>.catch(onReject)</h3>
                 <ul>
                     <li>Same as calling .then(null, onReject)</li>
-                    <li>Will return rejected Promise</li>
-                    <li>Unless onReject returns Promise.resolve(result)</li>
+                    <li>Will return resolved Promise</li>
+                    <li>Unless onReject returns Promise.reject(result)</li>
                 </ul>
             </section>
             <section>
@@ -236,7 +236,7 @@
                 <h3>Create resolved/rejected Promise</h3>
                 <ul>
                     <li>Promise.resolve() / promise.reject()</li>
-                    <li>$q.when / $q.reject()</li>
+                    <li>$q.resolve() / $q.reject()</li>
                     <li>Useful for Tests or default return values</li>
                 </ul>
             </section>
