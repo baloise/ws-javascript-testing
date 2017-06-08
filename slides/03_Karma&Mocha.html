@@ -182,7 +182,9 @@
                 <pre>
                     <code class="hljs typescript" data-trim contenteditable>
                         describe('pizza.service.module', () => {
-                            beforeEach(angular.mock.module('pizza.service.module'));
+                            beforeEach(() =>
+                                angular.mock.module('pizza.service.module')
+                            );
 
                             let PizzaService;
                             let SomeService;
@@ -194,8 +196,7 @@
                                 PizzaService = _PizzaService_;
                                 SomeService = _SomeService_;
                             });
-
-                            // Tests for some Service/Directive/Controller
+                            ...
                         });
                     </code>
                 </pre>
@@ -218,6 +219,68 @@
             </section>
             <section>
                 <p>Anything non-Angular is injected by Webpack which we will cover next!</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Angular Directive Testing</h2>
+            </section>
+            <section>
+                <h3>Test Setup</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        describe('pizza.service.module', () => {
+                            beforeEach(() =>
+                                angular.mock.module('pizza.service.module')
+                            );
+
+                            let $compile;
+                            let $rootScope;
+
+                            beforeEach(angular.mock.inject((
+                                _$compile_,
+                                _$rootScope_
+                            ) => {
+                                $compile = _$compile_;
+                                $rootScope = $rootScope;
+                            });
+                            ...
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Compile the Directive</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        it('should store name of Pizza in Scope', () => {
+                            const $scope = $rootScope.new();
+                            const element = $compile(
+                                '<pizza-view></pizza-view>'
+                            )($scope);
+
+                            $rootScope.$digest();
+
+                            expect($scope.myValue).to.equal('Pizza Salami');
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Test HTML Logic</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        it('should show Pizza Title', () => {
+                            const element = $compile(
+                                '<pizza-view></pizza-view>'
+                            )($rootScope.new());
+
+                            $rootScope.$digest();
+
+                            expect(element.find('h3').text()).to.equal('Pizza Salami');
+                        });
+                    </code>
+                </pre>
             </section>
         </section>
         <section>
