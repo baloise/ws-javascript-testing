@@ -2,7 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>reveal.js</title>
 
@@ -14,11 +15,11 @@
 
     <!-- Printing and PDF exports -->
     <script>
-        var link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = window.location.search.match(/print-pdf/gi) ? '../css/print/pdf.css' : '../css/print/paper.css';
-        document.getElementsByTagName('head')[0].appendChild(link);
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match(/print-pdf/gi) ? '../css/print/pdf.css' : '../css/print/paper.css';
+      document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 </head>
 <body>
@@ -61,26 +62,25 @@
             </section>
         </section>
         <section>
-            <section>
-                <h2>Webpack</h2>
-                <ul>
-                    <li>Browsers can't handle AMD Modules</li>
-                    <li>Bundles all Modules at compile time</li>
-                    <li>Serve one JS File to the Browser</li>
-                    <li>Code-Splitting, Lazy Loading and more</li>
-                </ul>
-            </section>
-            <section>
-                <h3>All together</h3>
-                <ul>
-                    <li>Webpack bundles our files for testing</li>
-                    <li>Karma loads them into a Browser</li>
-                    <li>Mocha runs the tests</li>
-                    <li>Angular injects our Angular Modules</li>
-                    <li>Chai does the expectations</li>
-                    <li>Sinon can spy/stub/mock stuff</li>
-                </ul>
-            </section>
+            <h2>Webpack</h2>
+            <ul>
+                <li>Load all files separately is slow (HTTP/1)</li>
+                <li>AMD Modules can't access node_modules</li>
+                <li>Bundle all Modules at compile time including node_modules</li>
+                <li>Serve one JS File to the Browser</li>
+                <li>Code-Splitting, Lazy Loading and more</li>
+            </ul>
+        </section>
+        <section>
+            <h2>All together</h2>
+            <ul>
+                <li>Webpack bundles our files</li>
+                <li>Karma loads them into a Browser</li>
+                <li>Mocha runs the tests</li>
+                <li>Angular injects our Angular Modules</li>
+                <li>Chai does the expectations</li>
+                <li>Sinon can spy/stub/mock stuff</li>
+            </ul>
         </section>
         <section>
             <h2>Question Time!</h2>
@@ -92,22 +92,22 @@
 <script src="../js/reveal.js"></script>
 
 <script>
-    // More info https://github.com/hakimel/reveal.js#configuration
-    Reveal.initialize({
-        history: true,
+  // More info https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    history: true,
 
-        // More info https://github.com/hakimel/reveal.js#dependencies
-        dependencies: [
-            {src: '../plugin/markdown/marked.js'},
-            {src: '../plugin/markdown/markdown.js'},
-            {src: '../plugin/notes/notes.js', async: true},
-            {
-                src: '../plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
-            }
-        ]
-    });
+    // More info https://github.com/hakimel/reveal.js#dependencies
+    dependencies: [
+      { src: '../plugin/markdown/marked.js' },
+      { src: '../plugin/markdown/markdown.js' },
+      { src: '../plugin/notes/notes.js', async: true },
+      {
+        src: '../plugin/highlight/highlight.js', async: true, callback: function () {
+        hljs.initHighlightingOnLoad();
+      }
+      }
+    ]
+  });
 </script>
 </body>
 </html>

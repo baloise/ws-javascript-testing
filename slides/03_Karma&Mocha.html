@@ -182,9 +182,7 @@
                 <pre>
                     <code class="hljs typescript" data-trim contenteditable>
                         describe('pizza.service.module', () => {
-                            beforeEach(() =>
-                                angular.mock.module('pizza.service.module')
-                            );
+                            beforeEach(angular.mock.module('pizza.service.module'));
 
                             let PizzaService;
                             let SomeService;
@@ -230,9 +228,7 @@
                 <pre>
                     <code class="hljs typescript" data-trim contenteditable>
                         describe('pizza.service.module', () => {
-                            beforeEach(() =>
-                                angular.mock.module('pizza.service.module')
-                            );
+                            beforeEach(angular.mock.module('pizza.service.module'));
 
                             let $compile;
                             let $rootScope;
