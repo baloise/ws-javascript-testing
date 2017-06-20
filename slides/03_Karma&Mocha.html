@@ -252,7 +252,7 @@
                         it('should store name of Pizza in Scope', () => {
                             const $scope = $rootScope.$new();
                             const element = $compile(
-                                `<pizza-view></pizza-view>
+                                `<pizza-view></pizza-view>`
                             )($scope);
 
                             $rootScope.$digest();
@@ -284,7 +284,7 @@
                     <code class="hljs typescript" data-trim contenteditable>
                         it('should hide Pizza Title on click', () => {
                             const element = $compile(
-                                `<pizza-view></pizza-view>
+                                `<pizza-view></pizza-view>`
                             )($rootScope.$new());
 
                             $rootScope.$digest();
