@@ -209,7 +209,7 @@
 
                                 PizzaService.calculate();
 
-                                sinon.assert(SomeService.add).calledTwice();
+                                sinon.assert.calledTwice(SomeService.add);
                             });
                         });
                     </code>
@@ -250,14 +250,14 @@
                 <pre>
                     <code class="hljs typescript" data-trim contenteditable>
                         it('should store name of Pizza in Scope', () => {
-                            const $scope = $rootScope.new();
+                            const $scope = $rootScope.$new();
                             const element = $compile(
-                                '<pizza-view></pizza-view>'
+                                `<pizza-view></pizza-view>
                             )($scope);
 
                             $rootScope.$digest();
 
-                            expect($scope.myValue).to.equal('Pizza Salami');
+                            expect(element.isolateScope().myValue).to.equal('Pizza Salami');
                         });
                     </code>
                 </pre>
@@ -268,12 +268,81 @@
                     <code class="hljs typescript" data-trim contenteditable>
                         it('should show Pizza Title', () => {
                             const element = $compile(
-                                '<pizza-view></pizza-view>'
-                            )($rootScope.new());
+                                `<pizza-view></pizza-view>`
+                            )($rootScope.$new());
 
                             $rootScope.$digest();
 
                             expect(element.find('h3').text()).to.equal('Pizza Salami');
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Testing Interaction</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        it('should hide Pizza Title on click', () => {
+                            const element = $compile(
+                                `<pizza-view></pizza-view>
+                            )($rootScope.$new());
+
+                            $rootScope.$digest();
+                            element.find('h3').click();
+                            $rootScope.$digest();
+`
+                            expect(element.find('h3')).to.be.undefined;
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Test Helper</h3>
+                <p>We have a TestHelper which does this compiling for us</p>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        define([
+                            'testHelper/TestHelper',
+                        ],
+                        .
+                        .
+                        .
+                        );
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>compileDirective(scope, html)</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        const result = TestHelper.compileDirective(
+                            $rootScope.$new(),
+                            `<my-directive></my-directive>`
+                        );
+
+                        /*{
+                            element,
+                            compiledElement,
+                            directiveScope,
+                        }*/
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Earlier Example</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        it('should hide Pizza Title on click', () => {
+                            const directive = TestHelper.compileDirective(
+                                $rootScope.$new(),
+                                `<pizza-view></pizza-view>`
+                            );
+
+                            $rootScope.$digest();
+                            directive.compiledElement.find('h3').click();
+                            $rootScope.$digest();
+
+                            expect(directive.compiledElement.find('h3')).to.be.undefined;
                         });
                     </code>
                 </pre>
