@@ -91,6 +91,41 @@
             </ul>
         </section>
         <section>
+            <section>
+                <h2>In our tests?</h2>
+            </section>
+            <section>
+                <ul>
+                    <li>Whole App loaded for tests</li>
+                    <li>Due to Performance reasons</li>
+                    <li>No App deps needed</li>
+                </ul>
+            </section>
+            <section>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        define([], () => {
+                            // Normally no deps needed
+                        });
+                    </code>
+                </pre>
+            </section>
+            <section>
+                <h3>Test Helper</h3>
+                <pre>
+                    <code class="hljs typescript" data-trim contenteditable>
+                        define([
+                            'testHelper/TestHelper',
+                        ], (TestHelper) => {
+                        .
+                        .
+                        .
+                        });
+                    </code>
+                </pre>
+            </section>
+        </section>
+        <section>
             <h2>Question Time!</h2>
             <img src="../img/final_questions.jpg">
         </section>

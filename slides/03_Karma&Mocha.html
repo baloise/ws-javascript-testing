@@ -299,17 +299,6 @@
             <section>
                 <h3>Test Helper</h3>
                 <p>We have a TestHelper which does this compiling for us</p>
-                <pre>
-                    <code class="hljs typescript" data-trim contenteditable>
-                        define([
-                            'testHelper/TestHelper',
-                        ],
-                        .
-                        .
-                        .
-                        );
-                    </code>
-                </pre>
             </section>
             <section>
                 <h3>compileDirective(scope, html)</h3>
@@ -333,16 +322,16 @@
                 <pre>
                     <code class="hljs typescript" data-trim contenteditable>
                         it('should hide Pizza Title on click', () => {
-                            const directive = TestHelper.compileDirective(
+                            const actual = TestHelper.compileDirective(
                                 $rootScope.$new(),
                                 `<pizza-view></pizza-view>`
                             );
 
                             $rootScope.$digest();
-                            directive.compiledElement.find('h3').click();
+                            actual.compiledElement.find('h3').click();
                             $rootScope.$digest();
 
-                            expect(directive.compiledElement.find('h3')).to.be.undefined;
+                            expect(actual.compiledElement.find('h3')).to.be.undefined;
                         });
                     </code>
                 </pre>
