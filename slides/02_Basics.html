@@ -75,7 +75,7 @@
                         try {
                             fetchStuff(fetchedData => console.log(fetchedData));
                         } catch (e) {
-                            console.log('catched exception');
+                            console.log(e);
                         }
                     </code>
                 </pre>
@@ -140,7 +140,7 @@
                         });
 
                         myPromise
-                            .then(data => console.log(data);
+                            .then(data => console.log(data));
                     </code>
                 </pre>
             </section>
@@ -202,10 +202,10 @@
                                 // Do something
                                 return asycPush();
                             })
+                            .catch(error => console.error(error));
                             .then((resultOfOtherPromise) => {
                                 return asyncFetch();
                             })
-                            .catch(error => console.error(error);
                     </code>
                 </pre>
             </section>
